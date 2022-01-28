@@ -1,2 +1,6 @@
 # Ising-Model-MViP1
-Checkpoint 1 for Modelling and Visualisation in Physics Course 2022, University of Edinburgh
+Checkpoint 1
+Modelling and Visualisation in Physics Course 
+SENIOR HONOURS
+2022, University of Edinburgh
+
