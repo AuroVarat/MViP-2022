@@ -1,7 +1,7 @@
 
 import numpy as np
 
-from scipy import sparse
+print(np.random.randint(0,50, size=(10,2,2)))
 
-print(np.multiply(2,3))
+
 

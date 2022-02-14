@@ -47,13 +47,15 @@ print(spin_neighbor_matrix.T)
 
 
 
-@jit(nopython=True)
+
 #spin_neighbor_matrix = sparse.csr_matrix(spin_neighbor_matrix).todense()
 def doLoop():
     
         for i in range(N**2):
-            np.negative(spin_neighbor_matrix[:,i])
-            np.sum(spin_neighbor_matrix[i])
+            i%10
+            i%10
+            i%10
+            i%10
         #spin_neighbor_matrix[i]
         # z = np.ones(N**2)
         # z[i] = -1
