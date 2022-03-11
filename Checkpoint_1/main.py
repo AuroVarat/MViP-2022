@@ -3,7 +3,8 @@ import matplotlib
 matplotlib.use('TKAgg')
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+import matplotlib.animation as anim
+
 from tqdm import tqdm
 from numba import jit
 #%%
