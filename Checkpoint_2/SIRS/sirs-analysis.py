@@ -10,16 +10,16 @@ x = np.linspace(0,1,21)
 print(x)
 # XX,YY = np.meshgrid(x,x)
 n = len(x)
-# mesh = np.array(np.meshgrid(x,x)).T.reshape(n,-1,2)
+#mesh = np.array(np.meshgrid(x,x)).T.reshape(n,-1,2)
 
 
 ai = np.empty((n,5))
 #vi = np.empty((n,2))    
 
-# for i in tqdm(range(n)):
-#     for j in range(n):
-#         pi,pj = mesh[i,j]
-#         ai[i,j], vi[i,j]= main(p1=pi,p2=0.5,p3=pj)
+for i in tqdm(range(n)):
+    for j in range(n):
+        pi,pj = mesh[i,j]
+        ai[i,j], vi[i,j]= main(p1=pi,p2=0.5,p3=pj)
         
 for i in tqdm(range(n)):
         for l in range(5):
