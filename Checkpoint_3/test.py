@@ -1,23 +1,23 @@
+import enum
 import numpy as np
-from scipy.signal import convolve2d
-from tqdm import tqdm as pb
 
+N = 6
+a = np.full((N, N),6)
+b = a.copy()
 
-N = 100
-phi0 = 0
+mask_one =  np.ones((N, N),dtype=bool)
+mask_one[1::2,1::2] = False
+mask_one[::2,::2] = False
+a[mask_one]*=1
+b[np.invert(mask_one)] *= 0 
 
-
-kernel = np.array([[0, 1, 0],
-                   [1, 1, 1],
-                    [0, 1, 0]])
-   
-
-a = np.random.uniform(-0.1+phi0,0.1+phi0,(N,N))  
-
-for i in pb(range(int(1e+6))):
-    a =  np.convolve(a, kernel, mode='same')
-    # a = (np.roll(a,1,axis=0) + 
-    #     np.roll(a,-1,axis=0) + 
-    #     np.roll(a,1,axis=1) + 
-    #     np.roll(a,-1,axis=1))
-     
+print(a)
+print(b)
+s = slice(2,4)
+print(a[s,s])
+# data = np.empty((21,2))
+# l = np.linspace(1,2,21)
+# print(l)
+# for i,j in enumerate(l):
+#     data[i] = i,j
+# print(data)
