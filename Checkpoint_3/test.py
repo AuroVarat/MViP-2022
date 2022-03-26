@@ -1,6 +1,10 @@
 import enum
 import numpy as np
-
+w = np.linspace(1,2,21)
+data = np.empty((21,2))
+for i,j in enumerate(w):
+    data[i] = i,j
+print(data)
 N = 6
 a = np.full((N, N),6)
 b = a.copy()

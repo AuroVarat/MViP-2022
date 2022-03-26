@@ -17,16 +17,19 @@ c_N = N//2
 nstep = int(9e+3)+1
 dx = 1.
 e0 = 1.
-
+mode = "sor"
 
 
 #calc
 s = slice(1,N+1)
 r1by6 = 1/6
-res = 30
-w_list = np.linspace(1,2,res)
+res = 11
+
+w_list = np.linspace(1.45,2,res)
+
 #initialization
 system = np.zeros((N+2,N+2,N+2)) 
+
 rho = np.zeros((N+2,N+2,N+2))
 rho[c_N,c_N,c_N] = 1
 #rho = np.pad(rho, pad_width=1)
@@ -45,104 +48,134 @@ select_white = np.pad(select_white,pad_width=1)
 
 
 
-def update_or(w):
-    global system
-    
-    prev_system = system.copy()
-    
-    _ = update_gauss_seidel()  
-    
-    system *= w
-    system += prev_system*(1-w) 
-    
-    
-    
-    
-    
-    # w*r1by6*(    
-    #                     np.pad
-    #                     ( 
-    #                         np.roll(system,1,axis=0)[s,s,s]+ 
-    #                         np.roll(system,-1,axis=0)[s,s,s] + 
-    #                         np.roll(system,1,axis=1)[s,s,s] + 
-    #                         np.roll(system,-1,axis=1)[s,s,s] +
-    #                         np.roll(system,1,axis=2)[s,s,s]+ 
-    #                         np.roll(system,-1,axis=2)[s,s,s],pad_width=1
-    #                     )
-    #                     + rho
-    #                 )
-    return np.sum(np.abs(system-prev_system))
 
-def update_gauss_seidel():
+def update_gauss_seidel(sor=False,w=0):
     global system
-    
     prev_system = system.copy()
-    system[select_black] *= 0
+    if np.isnan(system).any():
+        
+        raise Exception("NaN value encountered.")
+    system = r1by6*(    
+                        np.pad
+                        ( 
+                            np.roll( system,1,axis=0)[s,s,s]+ 
+                            np.roll(system,-1,axis=0)[s,s,s] + 
+                            np.roll(system,1,axis=1)[s,s,s] + 
+                            np.roll(system,-1,axis=1)[s,s,s] +
+                            np.roll(system,1,axis=2)[s,s,s]+ 
+                            np.roll(system,-1,axis=2)[s,s,s],pad_width=1
+                        )+ rho
+                        
+                    )
+    
+    system[select_black] = prev_system[select_black]
+    
+    temp = system.copy()
     
     system = r1by6*(    
                         np.pad
                         ( 
-                            np.roll(system,1,axis=0)[s,s,s]+ 
+                            np.roll( system,1,axis=0)[s,s,s]+ 
                             np.roll(system,-1,axis=0)[s,s,s] + 
                             np.roll(system,1,axis=1)[s,s,s] + 
                             np.roll(system,-1,axis=1)[s,s,s] +
                             np.roll(system,1,axis=2)[s,s,s]+ 
                             np.roll(system,-1,axis=2)[s,s,s],pad_width=1
-                        )
-                        + rho
+                        )+ rho
+                        
                     )
     
-    system[select_white] *= 0
-   
-
-
-    system += r1by6*(    
-                        np.pad
-                        ( 
-                            np.roll(system,1,axis=0)[s,s,s]+ 
-                            np.roll(system,-1,axis=0)[s,s,s] + 
-                            np.roll(system,1,axis=1)[s,s,s] + 
-                            np.roll(system,-1,axis=1)[s,s,s] +
-                            np.roll(system,1,axis=2)[s,s,s]+ 
-                            np.roll(system,-1,axis=2)[s,s,s],pad_width=1
-                        )
-                        
-                        + rho
-                    )
-   
+    system[select_white] = temp[select_white]
+ 
+    
+    
+    if sor:
+        system *= w
+        system += prev_system*(1-w) 
+        
     return np.sum(np.abs(system-prev_system))
 
-# data = np.empty((res,2))
-
-# for index,w in enumerate(w_list):
-    # system = np.zeros((N+2,N+2,N+2)) 
+def update_jacobian():
+    global system
     
-for i in  pb(range(nstep)):
+    prev_system = system.copy()
     
-    error = update_gauss_seidel()
+    system = r1by6*(    
+                        np.pad
+                        ( 
+                            np.roll( prev_system,1,axis=0)[s,s,s]+ 
+                            np.roll(prev_system,-1,axis=0)[s,s,s] + 
+                            np.roll(prev_system,1,axis=1)[s,s,s] + 
+                            np.roll(prev_system,-1,axis=1)[s,s,s] +
+                            np.roll(prev_system,1,axis=2)[s,s,s]+ 
+                            np.roll(prev_system,-1,axis=2)[s,s,s],pad_width=1
+                        )+ rho
+                        
+                    )
+ 
+
     
-    if np.isclose(error,0,atol=1e-3):
-        # data[index] = w,i
-        print(i,error)
-        break 
+    return np.sum(np.absolute(system-prev_system))
+
+def potential_calc():
+    return  np.pad( 
+                            np.roll(system,1,axis=0)[s,s,s]-system[s,s,s]+ 
+                            np.roll(system,1,axis=1)[s,s,s]-system[s,s,s] + 
+                            np.roll(system,1,axis=2)[s,s,s]-system[s,s,s] 
+                            ,pad_width=1
+            )
+    
+
+if mode == "gaussian":
+    #gauss-seidel
+    for sweep in  pb(range(nstep)):
+        
+        error = update_gauss_seidel(err=True)
+        if np.isclose(error,0,atol=1e-3):
+            break 
+        
+    plt.imshow(system[0:N+2,0:N+2,c_N],interpolation='gaussian')
+    plt.colorbar()
+    plt.show()
+
+elif mode == 'jacobian':
+    for sweep in  pb(range(nstep)):
+        
+        error = update_jacobian()
+        if np.isclose(error,0,atol=1e-3):
+            break 
+        
+    plt.imshow(system[0:N+2,0:N+2,c_N],interpolation='gaussian')
+    plt.colorbar()
+    plt.show()
+    
+elif mode == "sor":
+    #Overrelaxation with Gauss-Seidel
+    data = np.zeros((res,2))
+
+    for index in pb(range(res)):
+        
+        system = np.zeros((N+2,N+2,N+2)) 
+        w_i = w_list[index]
+   
+        for sweep in range(nstep):
+            error = update_gauss_seidel(sor=True,w=w_i)
+            
+            if np.isclose(error,0,atol=1e-3):
+                data[index] = w_i,sweep
+            
+                break 
+
+    np.savetxt("Checkpoint_3/Poisson/data/output_sor.dat",data)
+    plt.plot(data[:,0],data[:,1])
+    plt.show()
 
 
-# pot =  np.pad( 
-#                             np.roll(system,1,axis=0)[s,s,s]-system[s,s,s]+ 
-#                             np.roll(system,1,axis=1)[s,s,s]-system[s,s,s] + 
-#                             np.roll(system,1,axis=2)[s,s,s]-system[s,s,s] 
-#                             ,pad_width=1
-#             )
 
 
-# np.savetxt("Checkpoint_3/Poisson/data/output_sor.dat",data)
 
-# plt.plot(data[:,0],data[:,1])
-# plt.show()
 
-plt.imshow(system[0:N+2,0:N+2,c_N],interpolation='nearest')
-plt.colorbar()
-plt.show()
+
 
 
 # fig = plt.figure()

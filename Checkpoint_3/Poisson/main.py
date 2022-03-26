@@ -57,7 +57,7 @@ for sweep in pb(range(nstep)):
 
 
 
-plt.imshow(system[0:N+2,0:N+2,c_N],interpolation='nearest')
+plt.imshow(system[0:N+2,0:N+2,c_N],interpolation='gaussian')
 plt.colorbar()
 plt.show()
 
