@@ -1,0 +1,120 @@
+
+
+*******************************************************************************
+Fri Apr  1 21:23:30 2022
+
+
+FIT:    data read from "output_jacobian_pot.dat" u (log($3)):(log(4))
+        format = x:z
+        x range restricted to [1.00000 : 3.00000]
+        #datapoints = 1244
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+BREAK: Need via and either parameter list or file
+
+*******************************************************************************
+Fri Apr  1 21:23:45 2022
+
+
+FIT:    data read from "output_jacobian_pot.dat" u (log($3)):(log(4))
+        format = x:z
+        x range restricted to [1.00000 : 3.00000]
+        #datapoints = 1244
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x + b
+BREAK: Need via and either parameter list or file
+
+*******************************************************************************
+Fri Apr  1 21:23:54 2022
+
+
+FIT:    data read from "output_jacobian_pot.dat" u (log($3)):(log($4))
+        format = x:z
+        x range restricted to [1.00000 : 3.00000]
+        #datapoints = 1244
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x + b
+BREAK: Need via and either parameter list or file
+
+*******************************************************************************
+Fri Apr  1 21:25:18 2022
+
+
+FIT:    data read from "output_jacobian_pot.dat" u (log($3)):(log($4))
+        format = x:z
+        x range restricted to [0.00000 : 2.50000]
+        #datapoints = 472
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x + b
+BREAK: Need via and either parameter list or file
+
+*******************************************************************************
+Fri Apr  1 21:27:01 2022
+
+
+FIT:    data read from "output_jacobian_pot.dat" u (log($3)):(log($4))
+        format = x:z
+        x range restricted to [0.00000 : 2.50000]
+        #datapoints = 472
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x + b
+BREAK: Need via and either parameter list or file
+
+*******************************************************************************
+Fri Apr  1 21:27:49 2022
+
+
+FIT:    data read from "output_jacobian_pot.dat" u (log($3)):(log($4))
+        format = x:z
+        x range restricted to [0.00000 : 2.50000]
+        #datapoints = 472
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x + b
+BREAK: Need via and either parameter list or file
+
+*******************************************************************************
+Fri Apr  1 21:28:22 2022
+
+
+FIT:    data read from "output_jacobian_pot.dat" u (log($3)):(log($4))
+        format = x:z
+        x range restricted to [0.00000 : 2.50000]
+        #datapoints = 472
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x + b
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 1.1513356734e+04   0.00e+00  1.63e+00    1.000000e+00   1.000000e+00
+   3 2.6170164236e+00  -3.58e-03  1.63e-03   -7.508603e-01  -3.403962e-01
+
+After 3 iterations the fit converged.
+final sum of squares of residuals : 2.61702
+rel. change during last iteration : -3.58373e-08
+
+degrees of freedom    (FIT_NDF)                        : 470
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.0746198
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.00556812
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = -0.75086         +/- 0.007201     (0.959%)
+b               = -0.340396        +/- 0.01491      (4.379%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.973  1.000 

@@ -1,0 +1,37 @@
+
+
+*******************************************************************************
+Fri Apr  1 16:58:46 2022
+
+
+FIT:    data read from "output_jacobian_pot.dat" u (log($3)):(log(sqrt($5**2+$6**2+$7**2)))
+        format = x:z
+        x range restricted to [1.00000 : 3.00000]
+        #datapoints = 1244
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x + b
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 1.5556756556e+05   0.00e+00  1.95e+00    1.000000e+00   1.000000e+00
+   3 1.7137930588e+00  -1.85e-01  1.95e-03   -1.999575e+00  -2.510710e+00
+
+After 3 iterations the fit converged.
+final sum of squares of residuals : 1.71379
+rel. change during last iteration : -1.84712e-06
+
+degrees of freedom    (FIT_NDF)                        : 1242
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.0371465
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.00137987
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = -1.99957         +/- 0.0025       (0.125%)
+b               = -2.51071         +/- 0.00642      (0.2557%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.986  1.000 
