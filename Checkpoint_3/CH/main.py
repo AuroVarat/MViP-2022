@@ -11,7 +11,7 @@ N = 100
 M = 0.1
 a = 0.1
 k = 0.1
-phi0 = 0.
+phi0 = 0.5
 dt = 2.
 dx = 1.
 
@@ -48,13 +48,13 @@ f = np.empty((nstep//100)+1)
 for i in pb(range(nstep)):
     system += update()
     
-    if i%100 == 0:
+    if i%10000 == 0:
 
-        f[i//100] = fe()
-        # plt.cla()   
-        # plt.title(i)
-        # plt.imshow(system,vmax=1,vmin=-1,animated=True,interpolation='bilinear',cmap='ocean_r')
-        # plt.draw()
-        # plt.pause(0.0001)
+        #f[i//100] = fe()
+        plt.cla()   
+        plt.title(i)
+        plt.imshow(system,vmax=1,vmin=-1,animated=True,interpolation='gaussian',cmap='ocean_r')
+        plt.draw()
+        plt.pause(0.0001)
         
-np.savetxt("Checkpoint_3/CH/data/output_new.dat",f)
+#np.savetxt("Checkpoint_3/CH/data/output_new.dat",f)

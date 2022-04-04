@@ -50,11 +50,21 @@ import matplotlib.pyplot as plt
 
 # print(checkerboard((2,2,2)))
 
-a = np.ones((5,5))
+# a = np.ones((5,5,5))
 
-# npad is a tuple of (n_before, n_after) for each dimension
-npad = ((0,0), (0,0),(0, 0))
-b = np.pad(a, npad, mode='constant', constant_values=0)
-print(b)
-# potential = np.pad(potential[s,s,s], npad, mode='constant', constant_values=0)
-# #potential = np.pad(potential[s,s,s],pad_width=1)
+# # # npad is a tuple of (n_before, n_after) for each dimension
+# # npad = ((0,0), (0,0),(0, 0))
+# # b = np.pad(a, npad, mode='constant', constant_values=0)
+# # print(b)
+# # potential = np.pad(potential[s,s,s], npad, mode='constant', constant_values=0)
+# # #potential = np.pad(potential[s,s,s],pad_width=1)
+# p = slice(0,3)
+# s = (p,p,p)
+# print(a[s])
+
+dims = np.full(3,50)
+a,b,c= np.zeros((3,*dims))
+
+print(a.shape)
+print(b.shape)
+print(c.shape)
